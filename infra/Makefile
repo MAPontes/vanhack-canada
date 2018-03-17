@@ -1,0 +1,35 @@
+.DEFAULT_GOAL := help
+
+MY_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+include $(MY_DIR)/project_variables.mk
+
+TERRAFORM=$(shell which terraform)
+ifeq ("$(TERRAFORM)","")
+	TERRAFORM=$(MY_DIR)/bin/terraform
+endif
+
+init:
+	cd ./src && $(TERRAFORM) init
+
+setup:
+	mkdir -p ./bin
+	mkdir -p ./.work
+	cd ./.work && curl -LfOs https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
+	unzip .work/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -d ./bin/
+
+validate:
+	cd ./src && $(TERRAFORM) validate
+
+build: init validate
+
+
+plan:
+	cd ./src && $(TERRAFORM) plan
+
+clean:
+	rm -rf .work/ ./bin
+	cd ./src && rm -rf .terraform
+
+help:
+	@echo "Working on it..."
