@@ -8,19 +8,12 @@ matrix:
       script:
         - bundle exec rspec
 
-    - language: C
+    - language: c
       stage: test
       before_script:
         - cd infra/terraform/
       script:
         - make
-
-   - language: C
-      stage: test
-      before_script:
-        - cd infra/packer/
-      script:
-        - make test 
 
     - language: C
       stage: package
