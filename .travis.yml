@@ -36,3 +36,10 @@ matrix:
         - cd infra/packer/
       script:
         - make
+
+    - language: c
+      stage: deploy
+      before_script:
+        - cd infra/terraform/
+      script:
+        - make

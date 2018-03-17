@@ -25,7 +25,7 @@ build: init apply
 
 
 apply:
-	cd ./src && $(TERRAFORM) apply
+	cd ./src && $(TERRAFORM) apply -var "ami_id=$(AMI_ID)" -input=false -auto-approve
 
 clean:
 	rm -rf .work/ ./bin

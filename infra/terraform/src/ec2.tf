@@ -1,6 +1,6 @@
 resource "aws_instance" "web" {
 
-  ami = "ami-66506c1c"
+  ami = "${var.ami_id}"
   instance_type = "t2.micro"
 
   tags = {
