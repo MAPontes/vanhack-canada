@@ -17,13 +17,6 @@ matrix:
         - make test
 
     - language: c
-      stage: test
-      before_script:
-        - cd infra/packer/
-      script:
-        - make test
-
-    - language: c
       stage: package app
       before_script:
         - cd app/

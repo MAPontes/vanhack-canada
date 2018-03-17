@@ -18,10 +18,10 @@ setup:
 	cd ./.work && curl -LfOs https://releases.hashicorp.com/packer/$(PACKER_VERSION)/packer_$(PACKER_VERSION)_linux_amd64.zip
 	unzip .work/packer_$(PACKER_VERSION)_linux_amd64.zip -d ./bin/
 
-test: setup
+test:
 	cd ./src && $(PACKER) validate ubuntu.json
 
-build: setup aws
+build: setup aws test
 	cd ./src && aws s3 cp s3://vanhack-test-deploy/string_calculator.tgz .
 	cd ./src && $(PACKER) build ubuntu.json
 
