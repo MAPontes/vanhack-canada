@@ -1,3 +1,20 @@
-language: C
+matrix:
+  include:
+    - language: ruby
+      stage: test
+      before_script:
+        - cd app/test
+      script:
+        - bundle exec rspec
 
-script: make
+    - language: C
+      stage: test
+      before_script:
+        - cd infra/
+      script:
+        - make
+
+    - language: C
+      stage: deploy
+      script:
+        - make
