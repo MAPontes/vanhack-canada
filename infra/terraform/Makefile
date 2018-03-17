@@ -24,8 +24,8 @@ validate:
 build: init validate
 
 
-plan:
-	cd ./src && $(TERRAFORM) plan
+apply:
+	cd ./src && $(TERRAFORM) apply
 
 clean:
 	rm -rf .work/ ./bin
