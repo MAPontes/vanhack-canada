@@ -19,10 +19,10 @@ setup:
 	unzip .work/packer_$(PACKER_VERSION)_linux_amd64.zip -d ./bin/
 
 test:
+	cd ./src && aws s3 cp s3://vanhack-test-deploy/string_calculator.tgz .
 	cd ./src && $(PACKER) validate ubuntu.json
 
 build: setup aws test
-	cd ./src && aws s3 cp s3://vanhack-test-deploy/string_calculator.tgz .
 	cd ./src && $(PACKER) build ubuntu.json
 
 clean:
