@@ -19,10 +19,12 @@ test: setup
 	cd ./src && $(PACKER) validate ubuntu.json
 
 build: setup
+	cd ./src && aws s3 cp s3://vanhack-test-deploy/string_calculator.tgz .
 	cd ./src && $(PACKER) build ubuntu.json
 
 clean:
-	rm -rf .work/ ./bin
+	rm -rf .work/ ./bin \
+	./src/string_calculator.tgz
 
 help:
 	@echo "Working on it..."

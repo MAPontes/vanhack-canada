@@ -2,7 +2,7 @@
   "builders": [{
     "type": "amazon-ebs",
     "region": "us-east-1",
-    "source_ami": "ami-66506c1c",
+    "source_ami": "ami-64bf7619",
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
     "ami_name": "vanhack-example {{timestamp}}",
@@ -11,13 +11,18 @@
       "app": "myapp"
     }
   }],
-  "provisioners": [{
-    "type": "shell",
-    "inline": [
-      "sudo apt-get update",
-      "sudo apt-get install awscli -y",
-      "sudo aws s3 cp s3://vanhack-test-deploy/string_calculator.tgz .",
-      "sudo tar xvzf string_calculator.tgz"
-    ]
-  }]
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "string_calculator.tgz",
+      "destination": "~/"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get update",
+        "tar xvzf ~/string_calculator.tgz"
+      ]
+    }
+  ]
 }
