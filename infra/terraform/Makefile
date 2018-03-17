@@ -18,10 +18,10 @@ setup:
 	cd ./.work && curl -LfOs https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
 	unzip .work/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -d ./bin/
 
-validate:
+test: init
 	cd ./src && $(TERRAFORM) validate
 
-build: init validate
+build: init apply
 
 
 apply:
