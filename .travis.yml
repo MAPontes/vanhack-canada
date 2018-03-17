@@ -23,7 +23,7 @@ matrix:
         - make test 
 
     - language: C
-      stage: package & upload
+      stage: package
       before_script:
         - cd app/
       script:
