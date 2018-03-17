@@ -9,6 +9,9 @@ ifeq ("$(PACKER)","")
 	PACKER=$(MY_DIR)/bin/packer
 endif
 
+aws:
+	sudo apt-get install -y awscli
+
 setup:
 	mkdir -p ./bin
 	mkdir -p ./.work
@@ -18,7 +21,7 @@ setup:
 test: setup
 	cd ./src && $(PACKER) validate ubuntu.json
 
-build: setup
+build: setup aws
 	cd ./src && aws s3 cp s3://vanhack-test-deploy/string_calculator.tgz .
 	cd ./src && $(PACKER) build ubuntu.json
 
