@@ -2,6 +2,7 @@ matrix:
   include:
     - language: ruby
       stage: test
+      install: gem install rspec
       before_script:
         - cd app/test
       script:
