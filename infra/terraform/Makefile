@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := build
 
 MY_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+AMI_ID=$(shell aws ec2 describe-images --filters Name=tag-key,Values=app Name=tag-value,Values=myapp --query 'Images[*].{ID:ImageId}' | grep ID| cut -d " " -f10)
 
 include $(MY_DIR)/project_variables.mk
 
@@ -19,7 +20,7 @@ setup:
 	unzip .work/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -d ./bin/
 
 test: init
-	cd ./src && $(TERRAFORM) validate
+	cd ./src && $(TERRAFORM) validate -var  "ami_id=$(AMI_ID)"
 
 build: init apply
 
