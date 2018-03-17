@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := build
 
 MY_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
@@ -9,7 +9,7 @@ ifeq ("$(TERRAFORM)","")
 	TERRAFORM=$(MY_DIR)/bin/terraform
 endif
 
-init:
+init: setup
 	cd ./src && $(TERRAFORM) init
 
 setup:
