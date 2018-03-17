@@ -11,11 +11,20 @@ matrix:
     - language: C
       stage: test
       before_script:
-        - cd infra/
+        - cd infra/terraform/
       script:
         - make
 
+   - language: C
+      stage: test
+      before_script:
+        - cd infra/packer/
+      script:
+        - make test 
+
     - language: C
-      stage: deploy
+      stage: package & upload
+      before_script:
+        - cd app/
       script:
         - make
