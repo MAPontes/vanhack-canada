@@ -1,7 +1,6 @@
 .DEFAULT_GOAL := build
 
 MY_DIR=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-AMI_ID=$(shell aws ec2 describe-images --filters Name=tag-key,Values=app Name=tag-value,Values=myapp --query 'Images[*].{ID:ImageId}' | grep ID| cut -d " " -f10)
 
 include $(MY_DIR)/project_variables.mk
 
@@ -12,6 +11,9 @@ endif
 
 init: setup
 	cd ./src && $(TERRAFORM) init
+	sudo apt-get install -y awscli
+	
+AMI_ID=$(shell aws ec2 describe-images --filters Name=tag-key,Values=app Name=tag-value,Values=myapp --query 'Images[*].{ID:ImageId}' | grep ID| cut -d " " -f10)
 
 setup:
 	mkdir -p ./bin
